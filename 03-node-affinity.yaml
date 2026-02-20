@@ -11,8 +11,7 @@ spec:
           - key: topology.kubernetes.io/zone
             operator: In
             values:
-            - us-east-1c 
-        - matchExpressions:
+            - us-east-1c
           - key: disktype
             operator: In
             values:
