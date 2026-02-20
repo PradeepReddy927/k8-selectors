@@ -5,6 +5,7 @@ metadata:
 spec:
   affinity:
     nodeAffinity:
+      # HARD RULE
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
@@ -12,11 +13,31 @@ spec:
             operator: In
             values:
             - us-east-1c
-          - key: disktype
+          # - key: disktype
+          #   operator: In
+          #   values:
+          #   - ssd
+      # SOFT RULE      
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        preference:
+          matchExpressions:
+          - key: project
             operator: In
             values:
-            - ssd
+            - roboshop
+
+      - weight: 10
+        preference:
+          matchExpressions:
+          - key: project
+            operator: In
+            values:
+            - amazon   
   containers:
   - name: nginx
     image: nginx
     imagePullPolicy: Always
+
+
+ # SOFT RULE & HARD RULE WILL WORK SAME AVAILABILITY ZONE   example 2 nodes like us-east 1c 
